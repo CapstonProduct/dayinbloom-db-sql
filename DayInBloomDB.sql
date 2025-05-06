@@ -4,14 +4,15 @@ USE ELDERLY_HEALTHCARE;
 
 -- 2. users
 CREATE TABLE users (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
     birth_date DATE NOT NULL,
-    gender ENUM('male', 'female') NOT NULL,
+    gender ENUM('남성', '여성') NOT NULL,
     address VARCHAR(127),
     phone_number VARCHAR(15),
     height FLOAT,
     weight FLOAT,
+    BMI FLOAT,
     profile_image_url VARCHAR(255),
     profile_image_key VARCHAR(255),
     encodedId VARCHAR(20),
@@ -23,6 +24,8 @@ CREATE TABLE users (
     login_provider ENUM('fitbit', 'kakao') NOT NULL,
     is_profile_complete BOOLEAN DEFAULT FALSE,
     last_login TIMESTAMP,
+    refresh_token TEXT,
+    access_token TEXT,
     guardian_code VARCHAR(18) UNIQUE,
     doctor_code VARCHAR(18) UNIQUE,
     status ENUM('active', 'deleted', 'inactive') DEFAULT 'active',

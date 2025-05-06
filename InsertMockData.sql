@@ -1,21 +1,30 @@
 -- 1. users
 INSERT INTO users (
-    id, username, birth_date, gender, address, phone_number, height, weight,
-    profile_image_url, profile_image_key, encodedId, breakfast_time, lunch_time, dinner_time,
+    id, username, birth_date, gender, address, phone_number, height, weight, BMI,
+    profile_image_url, profile_image_key, encodedId,
+    breakfast_time, lunch_time, dinner_time,
     kakao_user_id, role, login_provider, is_profile_complete, last_login,
-    guardian_code, doctor_code
+    refresh_token, access_token,
+    guardian_code, doctor_code, status, deleted_at,
+    created_at, updated_at
 ) VALUES
-(1, '김영수', '1948-10-12', '남성', '서울시 종로구', '010-1234-5678', 165.2, 62.5,
+(1, '김영수', '1948-10-12', '남성', '서울시 종로구', '010-1234-5678', 165.2, 62.5, 20,
  NULL, NULL, 'CJBPPL', '07:30:00', '12:30:00', '18:00:00',
- NULL, 'senior', 'fitbit', TRUE, NOW(), 'GUARD123', 'DOCTOR678'),
+ NULL, 'senior', 'fitbit', TRUE, '2025-05-06 09:00:00',
+ NULL, NULL, 'GUARD123', 'DOCTOR678', 'active', NULL,
+ '2025-05-06 09:00:00', '2025-05-06 09:00:00'),
 
-(2, '이수민', '1980-05-05', '여성', '경기도 성남시', '010-2345-6789', 160.0, 55.0,
+(2, '이수민', '1980-05-05', '여성', '경기도 성남시', '010-2345-6789', 160.0, 55.0, 21,
  NULL, NULL, NULL, NULL, NULL, NULL,
- 'kakao_guardian_01', 'guardian', 'kakao', TRUE, NOW(), NULL, NULL),
+ 'kakao_guardian_01', 'guardian', 'kakao', TRUE, '2025-05-06 09:00:00',
+ NULL, NULL, NULL, NULL, 'active', NULL,
+ '2025-05-06 09:00:00', '2025-05-06 09:00:00'),
 
-(3, '박지훈', '1975-08-20', '남자', '서울시 강남구', '010-3456-7890', 175.0, 70.0,
+(3, '박지훈', '1975-08-20', '남성', '서울시 강남구', '010-3456-7890', 175.0, 70.0, 22,
  NULL, NULL, NULL, NULL, NULL, NULL,
- 'kakao_doctor_01', 'doctor', 'kakao', TRUE, NOW(), NULL, NULL);
+ 'kakao_doctor_01', 'doctor', 'kakao', TRUE, '2025-05-06 09:00:00',
+ NULL, NULL, NULL, NULL, 'active', NULL,
+ '2025-05-06 09:00:00', '2025-05-06 09:00:00');
 
 -- 2. user_alerts
 INSERT INTO user_alerts (user_id, alert_type, is_enabled) VALUES
