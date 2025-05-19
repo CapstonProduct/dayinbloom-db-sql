@@ -46,41 +46,87 @@ VALUES (1, 1001, 'Charge 5', '89%', NOW());
 INSERT INTO daily_missions (user_id, date, mission_quiz, mission_report, mission_exercise, mission_sleep, completed_count, marker_type)
 VALUES (1, '2025-04-01', TRUE, TRUE, TRUE, TRUE, 4, 'flowerbud');
 
--- 6. health_checkup_summary
-INSERT INTO health_checkup_summary (user_id, checkup_date, height, weight, bmi, blood_pressure, fasting_blood_sugar, total_cholesterol,
-hdl_cholesterol, ldl_cholesterol, triglyceride, gfr, ast, alt)
-VALUES (1, '2025-01-01', 165.2, 62.5, 22.9, '120/80', 95.5, 190.5, 55.5, 100.2, 135.3, 90.1, 25.4, 30.1);
-
--- 7. health_checkup_records
-INSERT INTO health_checkup_records (user_id, checkup_data)
-VALUES (1, '{"blood_pressure":"120/80","bmi":22.9,"height":165.2,"weight":62.5,"fasting_blood_sugar":95.5,"total_cholesterol":190.5,"hdl_cholesterol":55.5,"ldl_cholesterol":100.2,"triglyceride":135.3,"gfr":90.1,"ast":25.4,"alt":30.1}');
-
 -- 8. notifications (already included)
 INSERT INTO notifications (
     user_id, notification_type, message, triggered_by, sent_at,
     is_read, is_push_sent
 ) VALUES
-(1, 'report_ready', '1월 17일 건강 리포트가 생성되었습니다!', 'system', '2025-01-17 08:00:00', FALSE, TRUE),
-(1, 'morning_alert', '좋은 아침입니다! 잠은 푹 주무셨나요?', 'system', '2025-01-17 07:00:00', FALSE, TRUE),
-(1, 'meal_reminder', '저녁 식사를 하실 시간입니다!', 'system', '2025-01-17 18:30:00', FALSE, TRUE),
-(1, 'meal_reminder', '점심 식사를 하실 시간입니다!', 'system', '2025-01-17 12:30:00', FALSE, TRUE),
-(1, 'meal_reminder', '아침 식사를 하실 시간입니다!', 'system', '2025-01-17 07:30:00', FALSE, TRUE),
-(1, 'anomaly_alert', '심박수에서 이상이 감지되었습니다.', 'system', '2025-01-17 15:45:00', FALSE, TRUE),
-(1, 'advice_alert', '일어서기 목표를 달성했습니다!', 'system', '2025-01-16 14:00:00', TRUE, TRUE),
-(1, 'advice_alert', '일어 설 시간입니다. 몸을 일분 동안 움직이세요!', 'system', '2025-01-16 10:15:00', TRUE, TRUE),
-(1, 'anomaly_alert', '심박수가 높습니다. 안정을 취하세요!', 'system', '2025-01-16 09:30:00', TRUE, TRUE),
-(1, 'report_ready', '1월 16일 건강 리포트가 생성되었습니다!', 'system', '2025-01-16 08:00:00', TRUE, TRUE),
-(1, 'morning_alert', '좋은 아침입니다! 잠은 푹 주무셨나요?', 'system', '2025-01-16 07:00:00', TRUE, TRUE),
-(1, 'meal_reminder', '저녁 식사를 하실 시간입니다!', 'system', '2025-01-16 18:30:00', TRUE, TRUE),
-(1, 'meal_reminder', '점심 식사를 하실 시간입니다!', 'system', '2025-01-16 12:30:00', TRUE, TRUE);
+(1, 'report_ready', '5월 14일 건강 리포트가 생성되었습니다!', 'system', '2025-05-14 08:00:00', FALSE, TRUE),
+(1, 'morning_alert', '좋은 아침입니다! 잠은 푹 주무셨나요?', 'system', '2025-05-14 07:00:00', FALSE, TRUE),
+(1, 'meal_reminder', '저녁 식사를 하실 시간입니다!', 'system', '2025-05-14 18:30:00', FALSE, TRUE),
+(1, 'meal_reminder', '점심 식사를 하실 시간입니다!', 'system', '2025-05-13 12:30:00', FALSE, TRUE),
+(1, 'meal_reminder', '아침 식사를 하실 시간입니다!', 'system', '2025-05-13 07:30:00', FALSE, TRUE),
+(1, 'anomaly_alert', '심박수에서 이상이 감지되었습니다.', 'system', '2025-05-13 15:45:00', FALSE, TRUE),
+(1, 'advice_alert', '일어서기 목표를 달성했습니다!', 'system', '2025-05-12 14:00:00', TRUE, TRUE),
+(1, 'advice_alert', '일어 설 시간입니다. 몸을 일분 동안 움직이세요!', 'system', '2025-05-12 10:15:00', TRUE, TRUE),
+(1, 'anomaly_alert', '심박수가 높습니다. 안정을 취하세요!', 'system', '2025-05-12 09:30:00', TRUE, TRUE),
+(1, 'report_ready', '5월 11일 건강 리포트가 생성되었습니다!', 'system', '2025-05-11 08:00:00', TRUE, TRUE),
+(1, 'morning_alert', '좋은 아침입니다! 잠은 푹 주무셨나요?', 'system', '2025-05-11 07:00:00', TRUE, TRUE),
+(1, 'meal_reminder', '저녁 식사를 하실 시간입니다!', 'system', '2025-05-11 18:30:00', TRUE, TRUE),
+(1, 'meal_reminder', '점심 식사를 하실 시간입니다!', 'system', '2025-05-11 12:30:00', TRUE, TRUE);
 
 -- 9. health_analyzer
 INSERT INTO health_analyzer (user_id, analysis_type, triggered_alert, analysis_timestamp, trigger_details, notification_id)
 VALUES (1, 'threshold', TRUE, NOW(), '수면 시간 부족', 1);
 
 -- 10. qna_info
-INSERT INTO qna_info (user_id, timestamp, date, question, multiple_choice_response, text_response, gpt_qna_analysis)
-VALUES (1, NOW(), '2025-04-01', '오늘 식사 후 소화 상태는 어떠신가요?', '아주 좋음', '야채를 많이 먹었다.', '어르신께서 야채가 포함된 건강한 식사를 하셨군요! 건강한 식습관을 유지하면 좋습니다.');
+INSERT INTO qna_info (
+  user_id, timestamp, date,
+  question,
+  multiple_choice_response,
+  text_response,
+  gpt_qna_analysis
+) VALUES
+(1, NOW(), '2025-05-12',
+  '[
+    {"id": "Q1", "text": "오늘 식사 후 소화 상태는 어떠신가요?"},
+    {"id": "Q2", "text": "식사량은 적절했나요?"},
+    {"id": "Q7", "text": "오늘 어떤 운동을 하셨나요?"}
+  ]',
+  '[
+    {"question_id": "Q1", "answer_id": "A2", "text": "좋음"},
+    {"question_id": "Q2", "answer_id": "A1", "text": "적절했다"},
+    {"question_id": "Q7", "answer_id": "A1", "text": "산책"}
+  ]',
+  '[
+    {"question_id": "Q1", "text": "된장국이 맛있었어요."},
+    {"question_id": "Q7", "text": "공원에 다녀왔어요."}
+  ]',
+  '어르신께서는 5월 12일에 된장국을 드시고 소화 상태가 좋았다고 응답하셨습니다. 식사량도 적절하였고, 가벼운 산책을 통해 활동을 유지하셨습니다. 이 날의 응답은 건강한 식습관과 일상적인 신체 활동을 잘 이어가고 계신 모습으로 해석됩니다. 특별한 불편함 없이 하루를 보내신 것으로 보입니다.'
+),
+(1, NOW(), '2025-05-13',
+  '[
+    {"id": "Q5", "text": "어젯밤 잘 주무셨나요? 기분이 어떠신가요?"},
+    {"id": "Q9", "text": "오늘 운동을 하면서 특별히 힘들었던 점이 있으셨나요?"},
+    {"id": "Q11", "text": "어떤 하루를 보내셨나요?"}
+  ]',
+  '[
+    {"question_id": "Q5", "answer_id": "A2", "text": "적당히 잘 잠"},
+    {"question_id": "Q9", "answer_id": "A2", "text": "날씨가 좋지 않았다"},
+    {"question_id": "Q11", "answer_id": "A2", "text": "평범한 하루였다"}
+  ]',
+  '[
+    {"question_id": "Q9", "text": "바람이 많이 불었어요."}
+  ]',
+  '5월 13일 어르신은 수면이 비교적 양호했으며, 운동 중 날씨로 인해 약간의 어려움을 느끼셨습니다. 하루는 평범하게 보냈다고 응답하신 것으로 보아, 전반적으로 기분이나 컨디션은 무난한 상태였던 것으로 해석됩니다. 활동에는 일부 제약이 있었지만, 건강에 특별한 이상은 없었던 하루였습니다.'
+),
+(1, NOW(), '2025-05-14',
+  '[
+    {"id": "Q4", "text": "오늘 식사를 제때 하지 않으셨는데, 무슨 일이 있으셨나요?"},
+    {"id": "Q14", "text": "오늘 하루의 목표를 이루셨나요?"},
+    {"id": "Q15", "text": "내일은 어떤 활동을 해보고 싶으신가요?"}
+  ]',
+  '[
+    {"question_id": "Q4", "answer_id": "A2", "text": "식욕이 없었다"},
+    {"question_id": "Q14", "answer_id": "A2", "text": "일부 이루었다"},
+    {"question_id": "Q15", "answer_id": "A3", "text": "새로운 취미나 활동"}
+  ]',
+  '[
+    {"question_id": "Q14", "text": "운동은 했지만 책 읽기를 못 했어요."},
+    {"question_id": "Q15", "text": "그림을 그려보고 싶어요."}
+  ]',
+  '5월 14일 어르신은 식사 시간이 지났음에도 식욕이 없어 제때 식사를 하지 못하셨다고 응답하셨습니다. 일부 하루 목표를 이루었으나, 전반적으로 기력이 떨어진 것으로 해석됩니다. 다만, 내일은 새로운 취미나 활동을 해보고 싶다고 말씀하신 점에서 긍정적인 변화 의지가 엿보입니다. 정서적 지지와 에너지 회복을 위한 관심이 필요한 시점입니다.'
+);
 
 -- 11. daily_health_reports
 INSERT INTO daily_health_reports 

@@ -15,7 +15,7 @@ CREATE TABLE users (
     BMI FLOAT,
     profile_image_url VARCHAR(255),
     profile_image_key VARCHAR(255),
-    encodedId VARCHAR(20),
+    encodedId VARCHAR(20) UNIQUE,
     breakfast_time TIME,
     lunch_time TIME,
     dinner_time TIME,
@@ -83,36 +83,6 @@ CREATE TABLE daily_missions (
     marker_type ENUM('none', 'seed', 'sprout', 'leaf', 'flowerbud', 'flower') DEFAULT 'none',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE(user_id, date),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- 7. health_checkup_summary
-CREATE TABLE health_checkup_summary (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    user_id BIGINT NOT NULL,
-    checkup_date DATE,
-    height FLOAT,
-    weight FLOAT,
-    bmi FLOAT,
-    blood_pressure VARCHAR(10),
-    fasting_blood_sugar FLOAT,
-    total_cholesterol FLOAT,
-    hdl_cholesterol FLOAT,
-    ldl_cholesterol FLOAT,
-    triglyceride FLOAT,
-    gfr FLOAT,
-    ast FLOAT,
-    alt FLOAT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- 8. health_checkup_records
-CREATE TABLE health_checkup_records (
-    user_id BIGINT NOT NULL,
-    checkup_data JSON,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
