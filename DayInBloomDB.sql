@@ -3,36 +3,49 @@ CREATE DATABASE IF NOT EXISTS ELDERLY_HEALTHCARE CHARACTER SET utf8mb4 COLLATE u
 USE ELDERLY_HEALTHCARE;
 
 -- 2. users
-CREATE TABLE users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(10) NOT NULL,
-    birth_date DATE NOT NULL,
-    gender ENUM('남성', '여성') NOT NULL,
-    address VARCHAR(127),
-    phone_number VARCHAR(15),
-    height FLOAT,
-    weight FLOAT,
-    BMI FLOAT,
-    profile_image_url VARCHAR(255),
-    profile_image_key VARCHAR(255),
-    encodedId VARCHAR(20) UNIQUE,
-    breakfast_time TIME,
-    lunch_time TIME,
-    dinner_time TIME,
-    kakao_user_id VARCHAR(50),
-    role ENUM('senior', 'guardian', 'doctor') NOT NULL,
-    login_provider ENUM('fitbit', 'kakao') NOT NULL,
-    is_profile_complete BOOLEAN DEFAULT FALSE,
-    last_login TIMESTAMP,
-    refresh_token TEXT,
-    access_token TEXT,
-    guardian_code VARCHAR(18) UNIQUE,
-    doctor_code VARCHAR(18) UNIQUE,
-    status ENUM('active', 'deleted', 'inactive') DEFAULT 'active',
-    deleted_at TIMESTAMP NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+CREATE TABLE `users` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `username` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `birth_date` date NOT NULL,
+    `gender` enum('남성', '여성') COLLATE utf8mb4_unicode_ci NOT NULL,
+    `address` varchar(127) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `phone_number` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `height` float DEFAULT NULL,
+    `weight` float DEFAULT NULL,
+    `BMI` float DEFAULT NULL,
+    `profile_image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `profile_image_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `encodedId` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `breakfast_time` time DEFAULT NULL,
+    `lunch_time` time DEFAULT NULL,
+    `dinner_time` time DEFAULT NULL,
+    `kakao_user_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `role` enum(
+        'senior',
+        'guardian',
+        'doctor'
+    ) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `login_provider` enum('fitbit', 'kakao') COLLATE utf8mb4_unicode_ci NOT NULL,
+    `is_profile_complete` tinyint(1) DEFAULT '0',
+    `last_login` timestamp NULL DEFAULT NULL,
+    `refresh_token` text COLLATE utf8mb4_unicode_ci,
+    `access_token` text COLLATE utf8mb4_unicode_ci,
+    `guardian_code` varchar(18) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `doctor_code` varchar(18) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `status` enum(
+        'active',
+        'deleted',
+        'inactive'
+    ) COLLATE utf8mb4_unicode_ci DEFAULT 'active',
+    `deleted_at` timestamp NULL DEFAULT NULL,
+    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `access_token_expires` timestamp NULL DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `encodedId` (`encodedId`),
+    UNIQUE KEY `guardian_code` (`guardian_code`),
+    UNIQUE KEY `doctor_code` (`doctor_code`)
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 -- 3. user_alerts
 CREATE TABLE user_alerts (
@@ -234,38 +247,39 @@ CREATE TABLE fitbit_average (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
     recorded_at DATE NOT NULL,
-    period_type ENUM('1D', '7D', '30D', '90D', '180D', '365D') NOT NULL,
-    avg_steps INT,
-    avg_calories_total FLOAT,
-    avg_distance_km FLOAT,
-    avg_floors INT,
-    avg_heart_rate FLOAT,
-    avg_resting_heart_rate INT,
-    avg_activity_duration FLOAT,
-    avg_sedentary_minutes INT,
-    avg_lightly_active_minutes INT,
-    avg_fairly_active_minutes INT,
-    avg_very_active_minutes INT,
-    avg_total_sleep_hours INT,
-    avg_deep_sleep_hours FLOAT,
-    avg_light_sleep_hours FLOAT,
-    avg_rem_sleep_hours FLOAT,
-    avg_awake_hours FLOAT,
-    avg_sleep_heart_rate FLOAT,
-    avg_sleep_breathing_rate FLOAT,
-    avg_sleep_spo2 FLOAT,
-    avg_spo2 FLOAT,
-    avg_hrv FLOAT,
-    avg_rhr FLOAT,
-    avg_respiratory_rate FLOAT,
-    avg_skin_temperature FLOAT,
-    avg_stress_score FLOAT,
-    avg_readiness_score FLOAT,
+    period_type ENUM('1D', '7D', '30D') NOT NULL,
+
+    avg_steps INT DEFAULT NULL,
+    avg_calories_total FLOAT DEFAULT NULL,
+    avg_distance_km FLOAT DEFAULT NULL,
+    avg_heart_rate FLOAT DEFAULT NULL,
+    avg_resting_heart_rate INT DEFAULT NULL,
+    avg_activity_duration FLOAT DEFAULT NULL,
+    avg_sedentary_minutes INT DEFAULT NULL,
+    avg_lightly_active_minutes INT DEFAULT NULL,
+    avg_fairly_active_minutes INT DEFAULT NULL,
+    avg_very_active_minutes INT DEFAULT NULL,
+
+    avg_total_sleep_hours INT DEFAULT NULL,
+    avg_deep_sleep_hours FLOAT DEFAULT NULL,
+    avg_light_sleep_hours FLOAT DEFAULT NULL,
+    avg_rem_sleep_hours FLOAT DEFAULT NULL,
+    avg_awake_hours FLOAT DEFAULT NULL,
+    avg_sleep_heart_rate FLOAT DEFAULT NULL,
+
+    avg_hrv FLOAT DEFAULT NULL,
+    avg_rhr FLOAT DEFAULT NULL,
+    avg_respiratory_rate FLOAT DEFAULT NULL,
+    avg_skin_temperature FLOAT DEFAULT NULL,
+
+    avg_stress_score FLOAT DEFAULT NULL,
+    avg_readiness_score FLOAT DEFAULT NULL,
     avg_sleep_score FLOAT NOT NULL,
+
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE (user_id, recorded_at, period_type),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+
+    UNIQUE (user_id, recorded_at, period_type)
 );
 
 -- 18. fitbit_sleep_data
@@ -347,9 +361,6 @@ CREATE TABLE fitbit_average_history (
     avg_rem_sleep_hours FLOAT DEFAULT NULL,
     avg_awake_hours FLOAT DEFAULT NULL,
     avg_sleep_heart_rate FLOAT DEFAULT NULL,
-    avg_sleep_breathing_rate FLOAT DEFAULT NULL,
-    avg_sleep_spo2 FLOAT DEFAULT NULL,
-    avg_spo2 FLOAT DEFAULT NULL,
     avg_hrv FLOAT DEFAULT NULL,
     avg_rhr FLOAT DEFAULT NULL,
     avg_respiratory_rate FLOAT DEFAULT NULL,
@@ -373,4 +384,17 @@ CREATE TABLE device_tokens (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     UNIQUE (user_id, fcm_token)              
+);
+
+-- 23. goals
+CREATE TABLE goals (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    caloriesOut_goal FLOAT,
+    distance_goal FLOAT,
+    steps_goal INT,
+    activityMinutes_goal INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
