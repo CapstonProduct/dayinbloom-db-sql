@@ -1,3 +1,5 @@
+USE ELDERLY_HEALTHCARE;
+
 -- 1. users
 INSERT INTO users (
     id, username, birth_date, gender, address, phone_number, height, weight, BMI,
@@ -436,12 +438,27 @@ VALUES
 (1, '2025-05-05 00:00:00', 46.2, 50.3, 16.0, 0.3, 66.0, 19.0, 26.0, 21.0);
 
 -- 16. fitbit_average
-INSERT INTO fitbit_average (user_id, recorded_at, period_type, avg_steps, avg_calories_total, avg_distance_km, avg_floors,
-avg_heart_rate, avg_resting_heart_rate, avg_activity_duration, avg_sedentary_minutes, avg_lightly_active_minutes,
-avg_fairly_active_minutes, avg_very_active_minutes, avg_total_sleep_hours, avg_deep_sleep_hours, avg_light_sleep_hours,
-avg_rem_sleep_hours, avg_awake_hours, avg_sleep_heart_rate, avg_sleep_breathing_rate, avg_sleep_spo2, avg_spo2, avg_hrv,
-avg_rhr, avg_respiratory_rate, avg_skin_temperature, avg_stress_score, avg_readiness_score, avg_sleep_score)
-VALUES (1, '2025-04-01', '1D', 5000, 150.5, 3.5, 5, 70.2, 60, 30.5, 600, 120, 60, 30, 7, 2.5, 3.5, 0.5, 0.5, 65, 16.2, 98.5, 98.5, 50.2, 60, 16.2, 36.5, 40, 85, 80);
+-- INSERT INTO fitbit_average (user_id, recorded_at, period_type, avg_steps, avg_calories_total, avg_distance_km, avg_floors,
+-- avg_heart_rate, avg_resting_heart_rate, avg_activity_duration, avg_sedentary_minutes, avg_lightly_active_minutes,
+-- avg_fairly_active_minutes, avg_very_active_minutes, avg_total_sleep_hours, avg_deep_sleep_hours, avg_light_sleep_hours,
+-- avg_rem_sleep_hours, avg_awake_hours, avg_sleep_heart_rate, avg_sleep_breathing_rate, avg_sleep_spo2, avg_spo2, avg_hrv,
+-- avg_rhr, avg_respiratory_rate, avg_skin_temperature, avg_stress_score, avg_readiness_score, avg_sleep_score)
+-- VALUES (1, '2025-04-01', '1D', 5000, 150.5, 3.5, 5, 70.2, 60, 30.5, 600, 120, 60, 30, 7, 2.5, 3.5, 0.5, 0.5, 65, 16.2, 98.5, 98.5, 50.2, 60, 16.2, 36.5, 40, 85, 80);
+
+-- 16. fitbit_average
+INSERT INTO fitbit_average (
+    user_id, recorded_at, period_type,
+    avg_steps, avg_calories_total, avg_distance_km,
+    avg_heart_rate, avg_resting_heart_rate, avg_activity_duration,
+    avg_sedentary_minutes, avg_lightly_active_minutes, avg_fairly_active_minutes, avg_very_active_minutes,
+    avg_total_sleep_hours, avg_deep_sleep_hours, avg_light_sleep_hours, avg_rem_sleep_hours, avg_awake_hours, avg_sleep_heart_rate,
+    avg_hrv, avg_rhr, avg_respiratory_rate, avg_skin_temperature,
+    avg_stress_score, avg_readiness_score, avg_sleep_score
+)
+VALUES
+(1, '2025-04-01', '1D', 5000, 150.5, 3.5, 70.2, 60, 30.5, 600, 120, 60, 30, 7, 2.5, 3.5, 0.5, 0.5, 65, 50.2, 60, 16.2, 36.5, 40, 85, 80),
+(1, '2025-04-01', '7D', 6200, 172.3, 4.2, 72.1, 62, 35.0, 580, 130, 70, 35, 6, 2.0, 3.0, 0.4, 0.6, 66, 52.8, 61, 16.0, 36.7, 38, 87, 82),
+(1, '2025-04-01', '30D', 5900, 165.0, 3.9, 71.0, 61, 32.0, 610, 125, 65, 32, 6.5, 2.2, 3.1, 0.45, 0.55, 64, 51.5, 60, 16.1, 36.6, 39, 86, 81);
 
 -- 17. fitbit_sleep_data
 INSERT INTO fitbit_sleep_data (
@@ -669,28 +686,59 @@ INSERT INTO s3_bucket (file_key, bucket_name, url, storage_class, file_type, cat
 VALUES ('basic_pdf_20250401.pdf', 'elderly-bucket', 'https://bucket.s3/file/basic_pdf_20250401.pdf', 'STANDARD', 'pdf', 'basic_report', 1);
 
 -- 20. fitbit_average_history
+-- INSERT INTO fitbit_average_history (
+--     user_id, recorded_at, period_type,
+--     avg_steps, avg_calories_total, avg_distance_km, avg_floors,
+--     avg_heart_rate, avg_resting_heart_rate, avg_activity_duration,
+--     avg_sedentary_minutes, avg_lightly_active_minutes, avg_fairly_active_minutes, avg_very_active_minutes,
+--     avg_total_sleep_hours, avg_deep_sleep_hours, avg_light_sleep_hours, avg_rem_sleep_hours, avg_awake_hours,
+--     avg_sleep_heart_rate, avg_sleep_breathing_rate, avg_sleep_spo2, avg_spo2,
+--     avg_hrv, avg_rhr, avg_respiratory_rate, avg_skin_temperature,
+--     avg_stress_score, avg_readiness_score, avg_sleep_score
+-- )
+-- VALUES
+-- (1, '2025-05-13', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 15.2, 96.5, 97.1, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
+-- (1, '2025-05-13', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 14.8, 95.0, 96.0, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
+-- (1, '2025-05-13', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 16.0, 97.0, 97.8, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2),
+-- (1, '2025-05-14', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 15.2, 96.5, 97.1, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
+-- (1, '2025-05-14', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 14.8, 95.0, 96.0, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
+-- (1, '2025-05-14', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 16.0, 97.0, 97.8, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2),
+-- (1, '2025-05-15', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 15.2, 96.5, 97.1, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
+-- (1, '2025-05-15', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 14.8, 95.0, 96.0, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
+-- (1, '2025-05-15', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 16.0, 97.0, 97.8, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2);
+
+-- 20. fitbit_average_history
 INSERT INTO fitbit_average_history (
     user_id, recorded_at, period_type,
     avg_steps, avg_calories_total, avg_distance_km, avg_floors,
     avg_heart_rate, avg_resting_heart_rate, avg_activity_duration,
     avg_sedentary_minutes, avg_lightly_active_minutes, avg_fairly_active_minutes, avg_very_active_minutes,
     avg_total_sleep_hours, avg_deep_sleep_hours, avg_light_sleep_hours, avg_rem_sleep_hours, avg_awake_hours,
-    avg_sleep_heart_rate, avg_sleep_breathing_rate, avg_sleep_spo2, avg_spo2,
+    avg_sleep_heart_rate,
     avg_hrv, avg_rhr, avg_respiratory_rate, avg_skin_temperature,
     avg_stress_score, avg_readiness_score, avg_sleep_score
 )
 VALUES
-(1, '2025-05-13', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 15.2, 96.5, 97.1, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
-(1, '2025-05-13', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 14.8, 95.0, 96.0, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
-(1, '2025-05-13', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 16.0, 97.0, 97.8, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2),
-(1, '2025-05-14', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 15.2, 96.5, 97.1, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
-(1, '2025-05-14', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 14.8, 95.0, 96.0, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
-(1, '2025-05-14', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 16.0, 97.0, 97.8, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2),
-(1, '2025-05-15', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 15.2, 96.5, 97.1, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
-(1, '2025-05-15', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 14.8, 95.0, 96.0, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
-(1, '2025-05-15', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 16.0, 97.0, 97.8, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2);
+(1, '2025-05-13', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
+(1, '2025-05-13', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
+(1, '2025-05-13', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2),
+(1, '2025-05-14', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
+(1, '2025-05-14', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
+(1, '2025-05-14', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2),
+(1, '2025-05-15', '30D', 8500, 2200.5, 6.2, 10, 72.3, 60, 45.0, 600, 100, 50, 30, 7, 1.5, 3.2, 1.8, 0.5, 65.0, 45.3, 58.0, 16.8, 33.2, 23.0, 75.0, 82.5),
+(1, '2025-05-15', '90D', 9100, 2350.0, 7.1, 12, 74.0, 62, 50.5, 580, 120, 55, 28, 6, 1.2, 3.0, 1.5, 0.3, 63.2, 50.1, 60.0, 17.0, 34.5, 25.5, 78.0, 80.0),
+(1, '2025-05-15', '180D', 7700, 2100.0, 5.8, 8, 70.1, 59, 40.0, 620, 90, 40, 20, 8, 2.0, 3.5, 2.2, 0.7, 67.0, 42.0, 57.0, 16.5, 32.0, 20.0, 72.0, 85.2);
+
 
 -- 21. device_tokens
 INSERT INTO device_tokens (user_id, fcm_token, platform)
 VALUES (1, 'sample_fcm_token_123456', 'android');
 
+-- 22. goals
+INSERT INTO goals (user_id, caloriesOut_goal, distance_goal, steps_goal, activityMinutes_goal)
+VALUES
+(1, 2200.5, 5.0, 10000, 60),
+(1, 2500.0, 7.2, 12000, 75),
+(1, 2000.0, 4.5, 8500, 45),
+(1, 2700.3, 6.0, 13000, 80),
+(1, 2300.7, 5.5, 11000, 70);
