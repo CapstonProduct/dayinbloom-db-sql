@@ -51,7 +51,7 @@ CREATE TABLE `users` (
 CREATE TABLE user_alerts (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
-    alert_type ENUM('meal_reminder', 'report_ready', 'morning_alert', 'anomaly_alert', 'advice_alert', 'sleep_alert', 'exercise_alert', 'device_connect', 'device_battery'),
+    alert_type ENUM('meal_reminder', 'report_ready', 'morning_alert', 'anomaly_alert', 'sleep_alert', 'exercise_alert'),
     is_enabled BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

@@ -35,10 +35,7 @@ INSERT INTO user_alerts (user_id, alert_type, is_enabled) VALUES
 (1, 'morning_alert', TRUE),
 (1, 'anomaly_alert', TRUE),
 (1, 'sleep_alert', TRUE),
-(1, 'exercise_alert', TRUE),
-(1, 'device_connect', TRUE),
-(1, 'device_battery', TRUE);
-
+(1, 'exercise_alert', TRUE);
 
 -- 3. guardian_doctor_links (already included)
 INSERT INTO guardian_doctor_links (user_id, senior_id, role) VALUES
