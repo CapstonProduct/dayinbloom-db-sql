@@ -243,44 +243,45 @@ CREATE TABLE fitbit_health_metrics (
 );
 
 -- 17. fitbit_average
-CREATE TABLE fitbit_average (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    recorded_at DATE NOT NULL,
-    period_type ENUM('1D', '7D', '30D') NOT NULL,
-
-    avg_steps INT DEFAULT NULL,
-    avg_calories_total FLOAT DEFAULT NULL,
-    avg_distance_km FLOAT DEFAULT NULL,
-    avg_heart_rate FLOAT DEFAULT NULL,
-    avg_resting_heart_rate INT DEFAULT NULL,
-    avg_activity_duration FLOAT DEFAULT NULL,
-    avg_sedentary_minutes INT DEFAULT NULL,
-    avg_lightly_active_minutes INT DEFAULT NULL,
-    avg_fairly_active_minutes INT DEFAULT NULL,
-    avg_very_active_minutes INT DEFAULT NULL,
-
-    avg_total_sleep_hours INT DEFAULT NULL,
-    avg_deep_sleep_hours FLOAT DEFAULT NULL,
-    avg_light_sleep_hours FLOAT DEFAULT NULL,
-    avg_rem_sleep_hours FLOAT DEFAULT NULL,
-    avg_awake_hours FLOAT DEFAULT NULL,
-    avg_sleep_heart_rate FLOAT DEFAULT NULL,
-
-    avg_hrv FLOAT DEFAULT NULL,
-    avg_rhr FLOAT DEFAULT NULL,
-    avg_respiratory_rate FLOAT DEFAULT NULL,
-    avg_skin_temperature FLOAT DEFAULT NULL,
-
-    avg_stress_score FLOAT DEFAULT NULL,
-    avg_readiness_score FLOAT DEFAULT NULL,
-    avg_sleep_score FLOAT NOT NULL,
-
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    UNIQUE (user_id, recorded_at, period_type)
-);
+CREATE TABLE `fitbit_average` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `user_id` bigint NOT NULL,
+    `recorded_at` date NOT NULL,
+    `period_type` enum('1D', '7D', '30D') COLLATE utf8mb4_unicode_ci NOT NULL,
+    `avg_steps` int DEFAULT NULL,
+    `avg_calories_total` float DEFAULT NULL,
+    `avg_distance_km` float DEFAULT NULL,
+    `avg_heart_rate` float DEFAULT NULL,
+    `avg_resting_heart_rate` int DEFAULT NULL,
+    `avg_activity_duration` float DEFAULT NULL,
+    `avg_sedentary_minutes` int DEFAULT NULL,
+    `avg_lightly_active_minutes` int DEFAULT NULL,
+    `avg_fairly_active_minutes` int DEFAULT NULL,
+    `avg_very_active_minutes` int DEFAULT NULL,
+    `avg_total_sleep_hours` int DEFAULT NULL,
+    `avg_deep_sleep_hours` float DEFAULT NULL,
+    `avg_light_sleep_hours` float DEFAULT NULL,
+    `avg_rem_sleep_hours` float DEFAULT NULL,
+    `avg_awake_hours` float DEFAULT NULL,
+    `avg_sleep_heart_rate` float DEFAULT NULL,
+    `avg_hrv` float DEFAULT NULL,
+    `avg_rhr` float DEFAULT NULL,
+    `avg_respiratory_rate` float DEFAULT NULL,
+    `avg_skin_temperature` float DEFAULT NULL,
+    `avg_stress_score` float DEFAULT NULL,
+    `avg_total_score` float DEFAULT NULL,
+    `avg_sleep_score` float NOT NULL,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `avg_activity_score` float DEFAULT '0',
+    `avg_metrics_score` float DEFAULT '0',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `user_id` (
+        `user_id`,
+        `recorded_at`,
+        `period_type`
+    )
+) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 -- 18. fitbit_sleep_data
 CREATE TABLE fitbit_sleep_data (
@@ -339,40 +340,47 @@ CREATE TABLE s3_bucket (
 );
 
 -- 21. fitbit_average_history
-CREATE TABLE fitbit_average_history (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    recorded_at DATE NOT NULL,
-    period_type ENUM('30D', '90D', '180D', '365D') NOT NULL,
-    avg_steps INT DEFAULT NULL,
-    avg_calories_total FLOAT DEFAULT NULL,
-    avg_distance_km FLOAT DEFAULT NULL,
-    avg_floors INT DEFAULT NULL,
-    avg_heart_rate FLOAT DEFAULT NULL,
-    avg_resting_heart_rate INT DEFAULT NULL,
-    avg_activity_duration FLOAT DEFAULT NULL,
-    avg_sedentary_minutes INT DEFAULT NULL,
-    avg_lightly_active_minutes INT DEFAULT NULL,
-    avg_fairly_active_minutes INT DEFAULT NULL,
-    avg_very_active_minutes INT DEFAULT NULL,
-    avg_total_sleep_hours INT DEFAULT NULL,
-    avg_deep_sleep_hours FLOAT DEFAULT NULL,
-    avg_light_sleep_hours FLOAT DEFAULT NULL,
-    avg_rem_sleep_hours FLOAT DEFAULT NULL,
-    avg_awake_hours FLOAT DEFAULT NULL,
-    avg_sleep_heart_rate FLOAT DEFAULT NULL,
-    avg_hrv FLOAT DEFAULT NULL,
-    avg_rhr FLOAT DEFAULT NULL,
-    avg_respiratory_rate FLOAT DEFAULT NULL,
-    avg_skin_temperature FLOAT DEFAULT NULL,
-    avg_stress_score FLOAT DEFAULT NULL,
-    avg_readiness_score FLOAT DEFAULT NULL,
-    avg_sleep_score FLOAT NOT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE (user_id, recorded_at, period_type),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
+CREATE TABLE `fitbit_average_history` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `user_id` bigint NOT NULL,
+    `recorded_at` date NOT NULL,
+    `period_type` enum('30D', '90D', '180D', '360D') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `avg_steps` int DEFAULT NULL,
+    `avg_calories_total` float DEFAULT NULL,
+    `avg_distance_km` float DEFAULT NULL,
+    `avg_floors` int DEFAULT NULL,
+    `avg_heart_rate` float DEFAULT NULL,
+    `avg_resting_heart_rate` int DEFAULT NULL,
+    `avg_activity_duration` float DEFAULT NULL,
+    `avg_sedentary_minutes` int DEFAULT NULL,
+    `avg_lightly_active_minutes` int DEFAULT NULL,
+    `avg_fairly_active_minutes` int DEFAULT NULL,
+    `avg_very_active_minutes` int DEFAULT NULL,
+    `avg_total_sleep_hours` int DEFAULT NULL,
+    `avg_deep_sleep_hours` float DEFAULT NULL,
+    `avg_light_sleep_hours` float DEFAULT NULL,
+    `avg_rem_sleep_hours` float DEFAULT NULL,
+    `avg_awake_hours` float DEFAULT NULL,
+    `avg_sleep_heart_rate` float DEFAULT NULL,
+    `avg_hrv` float DEFAULT NULL,
+    `avg_rhr` float DEFAULT NULL,
+    `avg_respiratory_rate` float DEFAULT NULL,
+    `avg_skin_temperature` float DEFAULT NULL,
+    `avg_stress_score` float DEFAULT NULL,
+    `avg_total_score` float DEFAULT NULL,
+    `avg_sleep_score` float NOT NULL,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `avg_activity_score` float DEFAULT '0',
+    `avg_metrics_score` float DEFAULT '0',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `user_id` (
+        `user_id`,
+        `recorded_at`,
+        `period_type`
+    ),
+    CONSTRAINT `fitbit_average_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 -- 22. device_tokens
 CREATE TABLE device_tokens (
