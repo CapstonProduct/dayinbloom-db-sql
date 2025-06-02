@@ -5,9 +5,9 @@ USE ELDERLY_HEALTHCARE;
 -- 2. users
 CREATE TABLE `users` (
     `id` bigint NOT NULL AUTO_INCREMENT,
-    `username` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `birth_date` date NOT NULL,
-    `gender` enum('남성', '여성') COLLATE utf8mb4_unicode_ci NOT NULL,
+    `username` varchar(10) COLLATE utf8mb4_unicode_ci NULL,
+    `birth_date` date NULL,
+    `gender` enum('남성', '여성') COLLATE utf8mb4_unicode_ci NULL,
     `address` varchar(127) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `phone_number` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `height` float DEFAULT NULL,
@@ -24,8 +24,8 @@ CREATE TABLE `users` (
         'senior',
         'guardian',
         'doctor'
-    ) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `login_provider` enum('fitbit', 'kakao') COLLATE utf8mb4_unicode_ci NOT NULL,
+    ) COLLATE utf8mb4_unicode_ci NULL,
+    `login_provider` enum('fitbit', 'kakao') COLLATE utf8mb4_unicode_ci NULL,
     `is_profile_complete` tinyint(1) DEFAULT '0',
     `last_login` timestamp NULL DEFAULT NULL,
     `refresh_token` text COLLATE utf8mb4_unicode_ci,
@@ -140,30 +140,31 @@ CREATE TABLE qna_info (
 );
 
 -- 12. daily_health_reports
-CREATE TABLE daily_health_reports (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    user_id BIGINT NOT NULL,
-    report_date DATE NOT NULL,
-    report_status ENUM('pending', 'completed') DEFAULT 'pending',
-    overall_health_score FLOAT,
-    stress_score FLOAT,
-    total_exercise_time INT,
-    total_sleep_time INT,
-    avg_exercise_time FLOAT,
-    avg_heart_rate FLOAT,
-    calories_burned FLOAT,
-    sleep_score FLOAT,
-    spo2_variation FLOAT,
-    sleep_heart_rate FLOAT,
-    exercise_gpt_analysis TEXT,
-    sleep_gpt_analysis TEXT,
-    exercise_graph_path VARCHAR(255),
-    sleep_heartrate_path VARCHAR(255),
-    sleep_zone_graph_path VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
+CREATE TABLE `daily_health_reports` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `report_date` date NOT NULL,
+  `report_status` enum('pending','completed') COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
+  `overall_health_score` float DEFAULT NULL,
+  `stress_score` float DEFAULT NULL,
+  `total_activity_time` int DEFAULT NULL,
+  `total_sleep_time` int DEFAULT NULL,
+  `avg_heart_rate` float DEFAULT NULL,
+  `calories_burned` float DEFAULT NULL,
+  `sleep_score` float DEFAULT NULL,
+  `exercise_gpt_analysis` text COLLATE utf8mb4_unicode_ci,
+  `sleep_gpt_analysis` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timeinBed` int DEFAULT NULL,
+  `minutesAsleep` int DEFAULT NULL,
+  `hrv_contribution` float DEFAULT NULL,
+  `rhr_contribution` float DEFAULT NULL,
+  `sleep_contribution` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `daily_health_reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 13. health_reports_pdf
 CREATE TABLE health_reports_pdf (
